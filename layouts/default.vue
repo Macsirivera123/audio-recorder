@@ -69,16 +69,14 @@ export default {
         {
           icon: 'mdi-microphone',
           title: 'Recorder',
-          to: '/'
+          to: '/home'
         }
       ]
     }
   },
   methods: {
     logout() {
-      // Replace with your actual logout logic
-      alert('Logging out...')
-      // Example: this.$auth.logout()
+      this.$auth.logout(); // Proper Auth0 logout
     }
   }
 }

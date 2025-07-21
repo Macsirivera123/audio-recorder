@@ -35,6 +35,10 @@ export default {
     '@nuxtjs/auth-next'
   ],
 
+  /**
+   * ✅ Auth0 Configuration
+   * Using Authorization Code Flow with PKCE
+   */
   auth: {
     strategies: {
       auth0: {
@@ -44,7 +48,7 @@ export default {
         logoutRedirectUri: process.env.AUTH0_LOGOUT_REDIRECT_URI,
         redirectUri: process.env.AUTH0_REDIRECT_URI,
         responseType: 'code',
-        codeChallengeMethod: ''
+        codeChallengeMethod: 'S256' // <-- Must NOT be empty
       }
     },
     redirect: {
@@ -80,6 +84,5 @@ export default {
   build: {},
 
   router: {
-    middleware: [] // You can add 'auth' if you want to protect all routes
   }
 }
