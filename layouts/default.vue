@@ -2,7 +2,7 @@
   <v-app dark>
     <!-- Sidebar Navigation -->
     <v-navigation-drawer v-model="drawer" fixed app>
-      <v-list>
+      <v-list dense>
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -18,17 +18,25 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      <!-- Spacer pushes logout to the bottom -->
+      <v-spacer></v-spacer>
+
+      <!-- Logout Button at the Bottom -->
+      <v-list-item class="mt-auto" @click="logout">
+        <v-list-item-action>
+          <v-icon color="red">mdi-logout</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title class="red--text">Logout</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-navigation-drawer>
 
     <!-- Top App Bar -->
     <v-app-bar fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>{{ title }}</v-toolbar-title>
-      <v-spacer />
-      <v-btn color="red" text @click="logout">
-        <v-icon left>mdi-logout</v-icon>
-        Logout
-      </v-btn>
     </v-app-bar>
 
     <!-- Main Page Content -->
@@ -65,7 +73,7 @@ export default {
     logout() {
       // Replace with your actual logout logic
       alert('Logging out...')
-      // Example: this.$auth.logout() or redirect to login
+      // Example: this.$auth.logout()
     }
   }
 }
