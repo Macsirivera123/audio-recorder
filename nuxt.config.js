@@ -24,32 +24,35 @@ export default {
 
   components: true,
 
-  buildModules: [
-    '@nuxtjs/vuetify'
-  ],
+  buildModules: ['@nuxtjs/vuetify'],
 
-  modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/auth-next'
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
 
+  /**
+   * ✅ Final Auth0 config
+   */
   auth: {
+    redirect: {
+      login: '/welcome',
+      logout: '/welcome',
+      callback: '/callback',
+      home: '/home'
+    },
+    cookie: {
+      options: {
+        secure: true,
+        domain: '.vercel.app'
+      }
+    },
     strategies: {
       auth0: {
         domain: process.env.AUTH0_DOMAIN,
         clientId: process.env.AUTH0_CLIENT_ID,
-        audience: process.env.AUTH0_AUDIENCE,
-        logoutRedirectUri: process.env.AUTH0_LOGOUT_REDIRECT_URI,
-        redirectUri: process.env.AUTH0_REDIRECT_URI,
-        responseType: 'code',
-        codeChallengeMethod: 'S256'
+        redirectUri: process.env.AUTH0_REDIRECT_URI, // e.g. https://audio-recorder-self.vercel.app/callback
+        logoutRedirectUri: process.env.AUTH0_LOGOUT_REDIRECT_URI, // e.g. https://audio-recorder-self.vercel.app/welcome
+        audience: '', // Leave empty unless you're using a protected API
+        scope: ['openid', 'profile', 'email']
       }
-    },
-    redirect: {
-      login: '/welcome',       // Redirect to welcome page if not logged in
-      logout: '/welcome',      // Redirect to welcome after logout
-      callback: '/callback',   // Where Auth0 redirects after auth (you need this route)
-      home: '/home'            // Redirect after successful login
     }
   },
 
@@ -78,6 +81,6 @@ export default {
   build: {},
 
   router: {
-    middleware: [] // Optional: ['auth'] if you want global protection
+    middleware: [] // Add ['auth'] if you want global protection
   }
 }
