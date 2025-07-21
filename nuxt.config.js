@@ -6,9 +6,7 @@ export default {
   head: {
     titleTemplate: '%s - online-audio-recorder',
     title: 'online-audio-recorder',
-    htmlAttrs: {
-      lang: 'en'
-    },
+    htmlAttrs: { lang: 'en' },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -27,7 +25,7 @@ export default {
   components: true,
 
   buildModules: [
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify'
   ],
 
   modules: [
@@ -35,10 +33,6 @@ export default {
     '@nuxtjs/auth-next'
   ],
 
-  /**
-   * ✅ Auth0 Configuration
-   * Using Authorization Code Flow with PKCE
-   */
   auth: {
     strategies: {
       auth0: {
@@ -48,14 +42,14 @@ export default {
         logoutRedirectUri: process.env.AUTH0_LOGOUT_REDIRECT_URI,
         redirectUri: process.env.AUTH0_REDIRECT_URI,
         responseType: 'code',
-        codeChallengeMethod: 'S256' // <-- Must NOT be empty
+        codeChallengeMethod: 'S256'
       }
     },
     redirect: {
-      login: '/welcome',
-      logout: '/welcome',
-      callback: '/callback',
-      home: '/home'
+      login: '/welcome',       // Redirect to welcome page if not logged in
+      logout: '/welcome',      // Redirect to welcome after logout
+      callback: '/callback',   // Where Auth0 redirects after auth (you need this route)
+      home: '/home'            // Redirect after successful login
     }
   },
 
@@ -84,5 +78,6 @@ export default {
   build: {},
 
   router: {
+    middleware: [] // Optional: ['auth'] if you want global protection
   }
 }
