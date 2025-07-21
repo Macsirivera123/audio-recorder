@@ -44,7 +44,7 @@ export default {
         logoutRedirectUri: process.env.AUTH0_LOGOUT_REDIRECT_URI,
         redirectUri: process.env.AUTH0_REDIRECT_URI,
         responseType: 'code',
-        codeChallengeMethod: 'S256'
+        codeChallengeMethod: ''
       }
     },
     redirect: {
