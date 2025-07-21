@@ -1,8 +1,15 @@
-<!-- pages/index.vue -->
 <script>
 export default {
+  middleware: 'auth',
   mounted() {
-    this.$router.replace('/welcome')
+    // Do nothing, this page is protected by middleware
   }
 }
 </script>
+
+<template>
+  <div>
+    Redirecting to home...
+  </div>
+</template>
+
