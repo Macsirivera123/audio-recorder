@@ -1,86 +1,34 @@
 <template>
   <div>
-    <v-btn @click="toggleRecording" color="primary">
-      <v-icon left>{{ isRecording ? 'mdi-stop' : 'mdi-record-rec' }}</v-icon>
-      {{ isRecording ? 'Stop Recording' : 'Start Recording' }}
-    </v-btn>
+    <v-row dense>
+      <!-- Start/Stop Button -->
+      <v-col cols="12" sm="6" class="mb-2">
+        <v-btn
+          block
+          color="primary"
+          @click="toggleRecording"
+        >
+          <v-icon left>{{ isRecording ? 'mdi-stop' : 'mdi-record-rec' }}</v-icon>
+          {{ isRecording ? 'Stop Recording' : 'Start Recording' }}
+        </v-btn>
+      </v-col>
 
-    <v-btn
-      v-if="isRecording"
-      @click="togglePause"
-      color="orange"
-      class="ml-2"
-    >
-      <v-icon left>{{ isPaused ? 'mdi-play' : 'mdi-pause' }}</v-icon>
-      {{ isPaused ? 'Resume' : 'Pause' }}
-    </v-btn>
+      <!-- Pause/Resume Button -->
+      <v-col cols="12" sm="6" class="mb-2" v-if="isRecording">
+        <v-btn
+          block
+          color="orange"
+          @click="togglePause"
+        >
+          <v-icon left>{{ isPaused ? 'mdi-play' : 'mdi-pause' }}</v-icon>
+          {{ isPaused ? 'Resume' : 'Pause' }}
+        </v-btn>
+      </v-col>
+    </v-row>
 
-    <div v-if="timer > 0" class="mt-2 font-weight-bold">
-      Recording Time: {{ formattedTime }}
+    <!-- Timer -->
+    <div v-if="timer > 0" class="mt-2 text-center font-weight-bold">
+      ⏱ Recording Time: {{ formattedTime }}
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      mediaRecorder: null,
-      audioChunks: [],
-      isRecording: false,
-      isPaused: false,
-      timer: 0,
-      intervalId: null
-    }
-  },
-  computed: {
-    formattedTime() {
-      const min = String(Math.floor(this.timer / 60)).padStart(2, '0')
-      const sec = String(this.timer % 60).padStart(2, '0')
-      return `${min}:${sec}`
-    }
-  },
-  methods: {
-    async toggleRecording() {
-      if (!this.isRecording) {
-        // Start recording
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-        this.mediaRecorder = new MediaRecorder(stream)
-
-        this.audioChunks = []
-        this.mediaRecorder.ondataavailable = e => {
-          if (e.data.size > 0) this.audioChunks.push(e.data)
-        }
-
-        this.mediaRecorder.onstop = () => {
-          const blob = new Blob(this.audioChunks, { type: 'audio/webm' })
-          this.$emit('recorded', blob)
-        }
-
-        this.mediaRecorder.start()
-        this.isRecording = true
-        this.isPaused = false
-        this.timer = 0
-        this.intervalId = setInterval(() => this.timer++, 1000)
-      } else {
-        // Stop recording
-        this.mediaRecorder.stop()
-        clearInterval(this.intervalId)
-        this.isRecording = false
-        this.isPaused = false
-      }
-    },
-    togglePause() {
-      if (this.isPaused) {
-        this.mediaRecorder.resume()
-        this.isPaused = false
-        this.intervalId = setInterval(() => this.timer++, 1000)
-      } else {
-        this.mediaRecorder.pause()
-        this.isPaused = true
-        clearInterval(this.intervalId)
-      }
-    }
-  }
-}
-</script>
