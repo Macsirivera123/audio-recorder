@@ -1,15 +1,14 @@
-<!-- pages/callback.vue -->
 <template>
-  <div class="text-center pa-5">
-    <v-progress-circular indeterminate color="primary" size="48" />
-    <div class="mt-3">Logging in, please wait...</div>
-  </div>
+  <v-container class="fill-height d-flex align-center justify-center">
+    <div class="text-center">
+      <v-progress-circular indeterminate color="primary" size="48" />
+      <p class="mt-4">Logging in, please wait...</p>
+    </div>
+  </v-container>
 </template>
 
 <script>
 export default {
-  mounted() {
-    this.$auth.handleCallback()
-  }
+  middleware: 'auth', // Auth module will automatically process callback
 }
 </script>
