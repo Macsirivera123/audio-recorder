@@ -1,7 +1,12 @@
 <template>
   <v-app dark>
     <!-- Sidebar Navigation -->
-    <v-navigation-drawer v-model="drawer" fixed app>
+    <v-navigation-drawer
+      v-model="drawer"
+      fixed
+      app
+      transition="slide-x-transition"
+    >
       <v-list dense>
         <v-list-item
           v-for="(item, i) in items"

@@ -3,6 +3,7 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   ssr: false,
 
+  // Global page headers
   head: {
     titleTemplate: '%s - online-audio-recorder',
     title: 'online-audio-recorder',
@@ -15,25 +16,55 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
+  // Global CSS
   css: [],
 
+  // Plugins
   plugins: [
-    { src: '~/plugins/vue-audio-recorder.js', mode: 'client' } // ✅ Plugin registered here
+    { src: '~/plugins/vue-audio-recorder.js', mode: 'client' }
   ],
 
+  // Auto import components
   components: true,
 
+  // Build-time modules
   buildModules: [
     '@nuxtjs/vuetify',
   ],
 
-  modules: [],
+  // Runtime modules
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
+  ],
 
+  // Auth module configuration
+  auth: {
+    strategies: {
+      auth0: {
+        domain: process.env.AUTH0_DOMAIN,
+      clientId: process.env.AUTH0_CLIENT_ID,
+      audience: process.env.AUTH0_AUDIENCE,
+      logoutRedirectUri: process.env.AUTH0_LOGOUT_REDIRECT_URI
+      }
+    },
+    redirect: {
+      login: '/welcome',
+      logout: '/welcome',
+      callback: '/login', // used by Auth0 to return to your app
+      home: '/home'
+    }
+  },
+
+  // Axios config (required by auth module)
+  axios: {
+    baseURL: '/'
+  },
+
+  // Vuetify config
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
@@ -52,5 +83,11 @@ export default {
     }
   },
 
-  build: {}
+  // Build configuration
+  build: {},
+
+  // Router middleware setup (optional global setup)
+  router: {
+    middleware: []
+  }
 }
