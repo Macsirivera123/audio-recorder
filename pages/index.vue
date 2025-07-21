@@ -2,7 +2,7 @@
 export default {
   middleware: 'auth',
   mounted() {
-    // Do nothing, this page is protected by middleware
+    this.$router.replace('/home') // ✅ Redirect to your home.vue
   }
 }
 </script>
@@ -12,4 +12,5 @@ export default {
     Redirecting to home...
   </div>
 </template>
+
 
