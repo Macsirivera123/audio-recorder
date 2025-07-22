@@ -5,8 +5,10 @@
       <h2 class="text-h5 font-weight-bold">🎙 Audio Recorder</h2>
     </div>
 
-    <!-- Recorder Component -->
-    <custom-audio-recorder @recorded="onRecorded" />
+    <!-- Centered Recorder Component -->
+    <div class="d-flex justify-center mb-4">
+      <custom-audio-recorder @recorded="onRecorded" />
+    </div>
 
     <!-- Snackbar for notifications -->
     <v-snackbar v-model="snackbar.show" :timeout="3000" :color="snackbar.color">

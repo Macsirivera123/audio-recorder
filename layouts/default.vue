@@ -42,7 +42,7 @@
     </v-navigation-drawer>
 
     <!-- Top App Bar -->
-    <v-app-bar fixed app color="primary" dark class="app-bar">
+    <v-app-bar fixed app color="#556B2F" dark class="app-bar">
       <!-- Burger Icon (left) -->
       <v-btn
         v-if="$auth.loggedIn && $route.path === '/home'"
@@ -50,7 +50,7 @@
         @click.stop="drawer = !drawer"
         class="burger-button"
       >
-        <v-icon :color="drawer ? '#bbbbbb' : 'white'">mdi-menu</v-icon>
+        <v-icon :color="drawer ? '#CCCCAA' : 'white'">mdi-menu</v-icon>
       </v-btn>
 
       <!-- Absolute Centered Title -->
@@ -65,11 +65,6 @@
         <Nuxt />
       </v-container>
     </v-main>
-
-    <!-- Footer -->
-    <v-footer app color="primary" dark>
-      <span>&nbsp;</span>
-    </v-footer>
   </v-app>
 </template>
 
@@ -98,7 +93,6 @@ export default {
 </script>
 
 <style scoped>
-/* Center the title absolutely in the app bar */
 .toolbar-title-wrapper {
   position: absolute;
   left: 50%;
@@ -109,13 +103,12 @@ export default {
   z-index: 1;
 }
 
-/* Drawer and list styling */
 .custom-drawer {
-  background-color: #121212;
-  border-left: 2px solid #bbbbbb;
+  background-color: #556B2F;
+  border-left: 2px solid #CCCCAA;
 }
 
 .drawer-item {
-  border-bottom: 1px solid #bbbbbb;
+  border-bottom: 1px solid #CCCCAA;
 }
 </style>
