@@ -4,9 +4,3 @@
     <span class="ml-3">Logging in, please wait...</span>
   </v-container>
 </template>
-
-<script>
-export default {
-  // No middleware here
-}
-</script>
