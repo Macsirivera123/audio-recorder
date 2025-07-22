@@ -1,7 +1,9 @@
 <template>
   <v-container class="pa-4">
-    <!-- Title -->
-    <h2 class="text-h5 mb-4 font-weight-bold">🎙 Audio Recorder</h2>
+    <!-- Centered Title -->
+    <div class="text-center mb-6">
+      <h2 class="text-h5 font-weight-bold">🎙 Audio Recorder</h2>
+    </div>
 
     <!-- Recorder Component -->
     <custom-audio-recorder @recorded="onRecorded" />
@@ -21,7 +23,7 @@
         v-for="(record, index) in recordings"
         :key="index"
         cols="12"
-        class="mb-3"
+        class="mb-4"
       >
         <v-card class="pa-3">
           <v-row align="center" no-gutters>
